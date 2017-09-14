@@ -34,7 +34,7 @@ app.prepare().then(() => {
     })
   );
   server.use(bodyParser.json());
-  server.use(bodyParser.urlencoded({ extended: false }));
+  server.use(bodyParser.urlencoded({ extended: true }));
   server.use(cookieParser());
   require('./initial');
   server.use(passport.initialize());

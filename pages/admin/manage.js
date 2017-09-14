@@ -1,32 +1,56 @@
-import { withGoogleMap, GoogleMap, SeachBox } from 'react-google-maps';
+import React, { Component } from 'react';
 import { Layout } from '../../layouts';
-import Head from 'next/head';
-import { Input } from '../../components';
+import { PropertyForm } from '../../components';
 
-const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${process.env
-  .MAP_KEY}&libraries=places`;
+const getBase64 = file =>
+  new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      resolve(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  });
 
-export default function Manage() {
-  return (
-    <Layout userLoggedIn>
-      <Head>
-        <script src={googleMapsUrl} />
-      </Head>
-      <form method="POST" action="/api/admin/createProperty">
-        <Input label="Name" name="name" type="text" />
-        <Input label="Address" name="address" type="text" />
-        <Input name="location[coordinates][0]" type="hidden" />
-        <Input name="location[coordinates][1]" type="hidden" />
-      </form>
-      <style jsx>{`
-        form {
-          margin: 0 auto;
-          width: 600px;
-          padding: 20px;
-          border: 1px solid black;
-          border-radius: 10px;
-        }
-      `}</style>
-    </Layout>
-  );
+export default class Manage extends Component {
+  state = {
+    bullets: [],
+    photos: [],
+  };
+
+  onBulletEnter = e => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.setState({ bullets: [...this.state.bullets, e.target.value] });
+      e.target.value = '';
+    }
+  };
+
+  onBulletDelete = index => {
+    const { bullets } = this.state;
+    this.setState({
+      bullets: [...bullets.slice(0, index), ...bullets.slice(index + 1)],
+    });
+  };
+
+  onDrop = async files => {
+    const promises = files.map(getBase64);
+    const photos = await Promise.all(promises);
+    this.setState({
+      photos: [...this.state.photos, ...photos],
+    });
+  };
+
+  render() {
+    return (
+      <Layout userLoggedIn>
+        <PropertyForm
+          bullets={this.state.bullets}
+          onBulletEnter={this.onBulletEnter}
+          onBulletDelete={this.onBulletDelete}
+          photos={this.state.photos}
+          onDrop={this.onDrop}
+        />
+      </Layout>
+    );
+  }
 }

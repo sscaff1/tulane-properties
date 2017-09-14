@@ -1,13 +1,8 @@
-import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 export default function Layout({ children, userLoggedIn }) {
   return (
     <div>
-      <Head>
-        <title>Tulane Properties</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
       <h1>Tulane Properties</h1>
       {userLoggedIn && (
         <a className="logout" href="/logout">
@@ -15,11 +10,6 @@ export default function Layout({ children, userLoggedIn }) {
         </a>
       )}
       {children}
-      <style jsx global>{`
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
       <style jsx>{`
         h1 {
           text-align: center;
@@ -35,7 +25,7 @@ export default function Layout({ children, userLoggedIn }) {
 }
 
 Layout.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
   userLoggedIn: PropTypes.bool.isRequired,
 };
 
