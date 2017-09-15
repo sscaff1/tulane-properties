@@ -1,56 +1,51 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import withRedux from 'next-redux-wrapper';
 import { Layout } from '../../layouts';
 import { PropertyForm } from '../../components';
+import initStore from '../../store';
+import { savePictures } from '../../actions/photos';
+import { addBullet, deleteBullet } from '../../actions/bullets';
 
-const getBase64 = file =>
-  new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      resolve(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  });
-
-export default class Manage extends Component {
-  state = {
-    bullets: [],
-    photos: [],
+class Manage extends Component {
+  static propTypes = {
+    onDrop: PropTypes.func.isRequired,
+    addBullet: PropTypes.func.isRequired,
+    deleteBullet: PropTypes.func.isRequired,
   };
-
   onBulletEnter = e => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      this.setState({ bullets: [...this.state.bullets, e.target.value] });
+      this.props.addBullet(e.target.value);
       e.target.value = '';
     }
-  };
-
-  onBulletDelete = index => {
-    const { bullets } = this.state;
-    this.setState({
-      bullets: [...bullets.slice(0, index), ...bullets.slice(index + 1)],
-    });
-  };
-
-  onDrop = async files => {
-    const promises = files.map(getBase64);
-    const photos = await Promise.all(promises);
-    this.setState({
-      photos: [...this.state.photos, ...photos],
-    });
   };
 
   render() {
     return (
       <Layout userLoggedIn>
         <PropertyForm
-          bullets={this.state.bullets}
           onBulletEnter={this.onBulletEnter}
-          onBulletDelete={this.onBulletDelete}
-          photos={this.state.photos}
-          onDrop={this.onDrop}
+          onBulletDelete={this.props.deleteBullet}
+          onDrop={this.props.onDrop}
         />
       </Layout>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onDrop(files) {
+      dispatch(savePictures(files));
+    },
+    addBullet(text) {
+      dispatch(addBullet(text));
+    },
+    deleteBullet(index) {
+      dispatch(deleteBullet(index));
+    },
+  };
+};
+
+export default withRedux(initStore, null, mapDispatchToProps)(Manage);

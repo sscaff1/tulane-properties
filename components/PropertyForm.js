@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
 import Input from './Input';
 
 const DROPDOWN_OPTIONS = ['1', '2', '3', '4', '5', '6+'];
 
-export default class PropertyForm extends Component {
+class PropertyForm extends Component {
   static propTypes = {
     bullets: PropTypes.array.isRequired,
     onBulletEnter: PropTypes.func.isRequired,
@@ -157,3 +158,9 @@ export default class PropertyForm extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ photos, bullets }) => {
+  return { photos, bullets };
+};
+
+export default connect(mapStateToProps)(PropertyForm);
