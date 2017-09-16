@@ -8,7 +8,6 @@ const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const authController = require('./controllers/auth');
-const admin = require('./routes/admin');
 require('dotenv').config({ path: 'variables.env' });
 
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -17,6 +16,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
+  require('es6-promise').polyfill();
+  require('isomorphic-fetch');
   const server = express();
   mongoose.connect(process.env.DATABASE);
   mongoose.Promise = global.Promise;
@@ -41,7 +42,8 @@ app.prepare().then(() => {
   server.use(passport.session());
   server.use(flash());
 
-  server.use('/api/admin', admin);
+  server.use('/api/admin', require('./routes/admin'));
+  server.use('/api', require('./routes/api'));
   server.get('/admin/*', authController.isLoggedIn);
   server.get('/logout', authController.logout);
   server.get('*', (req, res) => handle(req, res));

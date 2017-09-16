@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugs = require('slugs');
 mongoose.Promise = global.Promise;
 
 const propertySchema = new mongoose.Schema({
@@ -46,6 +47,20 @@ propertySchema.pre('save', function(next) {
     this.updatedAt = newDate;
   }
   next();
+});
+
+propertySchema.pre('save', function(next) {
+  if (!this.isModified('name')) {
+    return next();
+  }
+  this.slug = slugs(this.name);
+  const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
+  this.constructor.find({ slug: slugRegEx }).then(properties => {
+    if (properties.length) {
+      this.slug = `${this.slug}-${properties.length + 1}`;
+    }
+    next();
+  });
 });
 
 module.exports = mongoose.model('Property', propertySchema);

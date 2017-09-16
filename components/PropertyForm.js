@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Input from './Input';
 import { addPictures } from '../actions/photos';
 import { addBullet, deleteBullet } from '../actions/bullets';
@@ -42,6 +41,13 @@ class PropertyForm extends Component {
     ));
   };
 
+  onSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.append('bullets', this.props.bullets);
+    axios.post('/api/admin/saveProperty', formData);
+  };
+
   render() {
     const {
       bullets,
@@ -78,7 +84,7 @@ class PropertyForm extends Component {
           <Input
             inputRef={ref => (this.address = ref)}
             label="Address"
-            name="address"
+            name="location[address]"
             onChange={this.onChangeAddress}
             onKeyDown={this.onKeyDown}
           />
@@ -108,11 +114,12 @@ class PropertyForm extends Component {
           <Input
             label="Rental Price per Month"
             name="rentalPrice"
-            helperText="Enter the price per month as a number only"
+            type="number"
+            helperText="Enter the price per month as a number only (no commas)"
           />
           <Input
             label="Bullet Description"
-            name="bullets"
+            name="tempBullet"
             helperText="Hit enter to add bullet; click x to delete bullet"
             onKeyDown={onBulletEnter}
           />
@@ -124,6 +131,7 @@ class PropertyForm extends Component {
                   <span className="delete" onClick={() => onBulletDelete(i)}>
                     &times;
                   </span>
+                  <input type="hidden" name={`bullets[${i}]`} value={b} />
                 </li>
               ))}
             </ul>
