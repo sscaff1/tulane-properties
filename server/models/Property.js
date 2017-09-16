@@ -22,6 +22,10 @@ const propertySchema = new mongoose.Schema({
       required: 'You must supply an address!',
     },
   },
+  bedrooms: String,
+  bathrooms: String,
+  price: Number,
+  bullets: [String],
   photos: [String],
   createdAt: {
     type: Date,

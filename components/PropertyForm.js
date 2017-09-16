@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import Input from './Input';
+import { addPictures } from '../actions/photos';
+import { addBullet, deleteBullet } from '../actions/bullets';
 
 const DROPDOWN_OPTIONS = ['1', '2', '3', '4', '5', '6+'];
 
@@ -49,17 +52,29 @@ class PropertyForm extends Component {
     } = this.props;
     return (
       <div className="wrap">
-        <label>Photos</label>
-        <Dropzone onDrop={onDrop} className="dropZone">
-          Drop some photos here to upload
-        </Dropzone>
-        <div className="previewGroup">
-          {photos.map((p, i) => (
-            <img key={`photo-${i}`} src={p} className="preview" />
-          ))}
-        </div>
-        <form method="POST" action="/api/admin/createProperty">
-          <Input label="Name" name="name" />
+        <form
+          method="POST"
+          encType="multipart/form-data"
+          action="/api/admin/saveProperty"
+        >
+          <label>Photos</label>
+          <Dropzone
+            onDrop={onDrop}
+            className="dropZone"
+            inputProps={{ name: 'photos' }}
+          >
+            Drop some photos here to upload
+          </Dropzone>
+          <div className="previewGroup">
+            {photos.map((p, i) => (
+              <img key={`photo-${i}`} src={p.preview} className="preview" />
+            ))}
+          </div>
+          <Input
+            label="Name"
+            name="name"
+            helperText="Needed to determine the URL of the property"
+          />
           <Input
             inputRef={ref => (this.address = ref)}
             label="Address"
@@ -90,7 +105,11 @@ class PropertyForm extends Component {
               {this.getOptions()}
             </Input>
           </div>
-          <Input label="Rental Price per Month" name="rentalPrice" />
+          <Input
+            label="Rental Price per Month"
+            name="rentalPrice"
+            helperText="Enter the price per month as a number only"
+          />
           <Input
             label="Bullet Description"
             name="bullets"
@@ -163,4 +182,22 @@ const mapStateToProps = ({ photos, bullets }) => {
   return { photos, bullets };
 };
 
-export default connect(mapStateToProps)(PropertyForm);
+const mapDispatchToProps = dispatch => {
+  return {
+    onDrop(files) {
+      dispatch(addPictures(files));
+    },
+    onBulletEnter(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        dispatch(addBullet(e.target.value));
+        e.target.value = '';
+      }
+    },
+    onBulletDelete(index) {
+      dispatch(deleteBullet(index));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PropertyForm);

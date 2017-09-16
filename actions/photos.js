@@ -1,23 +1,16 @@
+import loadImage from 'blueimp-load-image';
+
 export const actionTypes = {
   PHOTO_ADD: 'PHOTO_ADD',
   PHOTO_DELETE: 'PHOTO_DELETE',
 };
 
-const getBase64 = file =>
+const loadImagePromise = file =>
   new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      resolve(e.target.result);
-    };
-    reader.readAsDataURL(file);
+    loadImage(file, img => resolve(img), { maxWidth: 200 });
   });
 
-const addPictures = pics => ({ type: actionTypes.PHOTO_ADD, pics });
-
-export const savePictures = files => dispatch => {
-  const promises = files.map(getBase64);
-  Promise.all(promises).then(pics => dispatch(addPictures(pics)));
-};
+export const addPictures = pics => ({ type: actionTypes.PHOTO_ADD, pics });
 
 export const deletePictures = index => ({
   type: actionTypes.PHOTO_DELETE,
