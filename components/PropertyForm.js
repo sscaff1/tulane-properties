@@ -57,28 +57,24 @@ class PropertyForm extends Component {
           action="/api/admin/saveProperty"
         >
           <label>Photos</label>
-          <Dropzone onDrop={onDrop} className="dropZone">
+          <Dropzone
+            onDrop={onDrop}
+            className="dropZone"
+            inputProps={{ name: 'photos' }}
+          >
             Drop some photos here to upload
           </Dropzone>
           <div className="previewGroup">
             {photos.map((p, i) => (
-              <div>
+              <div key={`photo-${i}`} className="preview">
                 <img
-                  key={`photo-${i}`}
                   src={p.file.preview}
-                  className="preview"
-                  style={`transform(${p.rotate}deg)`}
+                  style={{ transform: `(${p.rotate}deg)` }}
                 />
-                <input type="hidden" value={p.file} name={`photo[${i}]`} />
                 <input type="hidden" value={p.rotate} name={`rotates[${i}]`} />
               </div>
             ))}
           </div>
-          <Input
-            label="Name"
-            name="name"
-            helperText="Needed to determine the URL of the property"
-          />
           <Input
             inputRef={ref => (this.address = ref)}
             label="Address"
@@ -166,6 +162,10 @@ class PropertyForm extends Component {
           .preview {
             max-width: 30%;
             margin-top: 15px;
+          }
+          .preview img {
+            max-width: 100%;
+            height: auto;
           }
           .previewGroup {
             align-items: center;

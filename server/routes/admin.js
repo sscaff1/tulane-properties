@@ -1,6 +1,10 @@
 const express = require('express');
 const passport = require('passport');
-const { imageMiddleware, createProperty } = require('../controllers/admin');
+const {
+  imageMiddleware,
+  createProperty,
+  getDistanceToCampus,
+} = require('../controllers/admin');
 
 module.exports = express
   .Router()
@@ -12,4 +16,4 @@ module.exports = express
       successRedirect: '/admin/manage',
     })
   )
-  .post('/saveProperty', imageMiddleware, createProperty);
+  .post('/saveProperty', imageMiddleware, getDistanceToCampus, createProperty);

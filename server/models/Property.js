@@ -3,10 +3,6 @@ const slugs = require('slugs');
 mongoose.Promise = global.Promise;
 
 const propertySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: 'You must provide a name!',
-  },
   slug: String,
   description: {
     type: String,
@@ -33,6 +29,7 @@ const propertySchema = new mongoose.Schema({
       rotate: Number,
     },
   ],
+  distanceToCampus: Number,
   createdAt: {
     type: Date,
   },
@@ -55,10 +52,10 @@ propertySchema.pre('save', function(next) {
 });
 
 propertySchema.pre('save', function(next) {
-  if (!this.isModified('name')) {
+  if (!this.isModified('location')) {
     return next();
   }
-  this.slug = slugs(this.name);
+  this.slug = slugs(this.location.address);
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
   this.constructor.find({ slug: slugRegEx }).then(properties => {
     if (properties.length) {

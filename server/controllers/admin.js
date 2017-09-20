@@ -18,6 +18,34 @@ const multerOptions = {
   }),
 };
 
+function getDistanceFromLatLonInMi(coordinates) {
+  const [lng1, lat1] = coordinates;
+  const lng2 = -90.12072790000002;
+  const lat2 = 29.9403477;
+  const R = 3959; // Radius of the earth in mi
+  const dLat = deg2rad(lat2 - lat1); // deg2rad below
+  const dLon = deg2rad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c; // Distance in mi
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
+exports.getDistanceToCampus = (req, res, next) => {
+  req.body.distanceToCampus = getDistanceFromLatLonInMi(
+    req.body.location.coordinates
+  );
+  next();
+};
+
 exports.imageMiddleware = multer(multerOptions).array('photos');
 
 exports.createProperty = (req, res) => {

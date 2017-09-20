@@ -3,6 +3,7 @@ import { Layout } from '../layouts';
 import { Tile, Slider, Map } from '../components';
 
 export default function Index({ properties }) {
+  console.log(properties);
   return (
     <Layout withMenu>
       <Slider />

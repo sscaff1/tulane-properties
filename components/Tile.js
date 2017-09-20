@@ -1,5 +1,9 @@
 import Link from 'next/link';
 
+const roundDistance = distance => {
+  return Math.round(distance * 100) / 100;
+};
+
 export default function Tile({
   location,
   description,
@@ -8,6 +12,7 @@ export default function Tile({
   slug,
   photos,
   price,
+  distanceToCampus,
 }) {
   return (
     <Link as={`/property/${slug}`} href={`/property?slug=${slug}`}>
@@ -34,6 +39,9 @@ export default function Tile({
             <li>Bedrooms: {bedrooms}</li>
             <li>Price: ${price}</li>
             <li>Price/Bedroom: ${Math.floor(price / bedrooms)}</li>
+            <li>
+              Distance from Campus: {roundDistance(distanceToCampus)} miles
+            </li>
           </ul>
         </div>
         <style jsx>{`
@@ -67,9 +75,9 @@ export default function Tile({
           }
           .description {
             padding-top: 20px;
-            margin-left: 15px;
+            margin-left: 25px;
             display: flex;
-            flex: 1;
+            flex: 0.8;
             flex-direction: column;
             align-items: flex-start;
           }
