@@ -6,6 +6,10 @@ import { PropertyForm } from '../../components';
 import initStore from '../../store';
 
 class Manage extends Component {
+  static propTypes = {
+    properties: PropTypes.array.isRequired,
+  };
+
   static async getInitialProps({ req }) {
     const prefix = req
       ? `${req.protocol}://${req.get('Host')}`

@@ -27,7 +27,12 @@ const propertySchema = new mongoose.Schema({
   bathrooms: String,
   price: Number,
   bullets: [String],
-  photos: [String],
+  photos: [
+    {
+      location: String,
+      rotate: Number,
+    },
+  ],
   createdAt: {
     type: Date,
   },

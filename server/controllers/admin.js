@@ -21,7 +21,10 @@ const multerOptions = {
 exports.imageMiddleware = multer(multerOptions).array('photos');
 
 exports.createProperty = (req, res) => {
-  req.body.photos = req.files.map(f => f.location);
+  req.body.photos = req.files.map((f, i) => ({
+    location: f.location,
+    rotate: req.body.rotates[i],
+  }));
   const property = new Property(req.body);
   property.save().then(() => res.redirect('back'));
 };

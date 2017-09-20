@@ -9,6 +9,12 @@ export default (state = [], action) => {
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1),
       ];
+    case actionTypes.PHOTO_ROTATE:
+      return [
+        ...state.slice(0, action.index),
+        { ...state[index], rotate: state[index].rotate + 90 },
+        ...state.slice(action.index + 1),
+      ];
     default:
       return state;
   }

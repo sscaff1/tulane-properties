@@ -41,13 +41,6 @@ class PropertyForm extends Component {
     ));
   };
 
-  onSubmit = e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    formData.append('bullets', this.props.bullets);
-    axios.post('/api/admin/saveProperty', formData);
-  };
-
   render() {
     const {
       bullets,
@@ -64,16 +57,21 @@ class PropertyForm extends Component {
           action="/api/admin/saveProperty"
         >
           <label>Photos</label>
-          <Dropzone
-            onDrop={onDrop}
-            className="dropZone"
-            inputProps={{ name: 'photos' }}
-          >
+          <Dropzone onDrop={onDrop} className="dropZone">
             Drop some photos here to upload
           </Dropzone>
           <div className="previewGroup">
             {photos.map((p, i) => (
-              <img key={`photo-${i}`} src={p.preview} className="preview" />
+              <div>
+                <img
+                  key={`photo-${i}`}
+                  src={p.file.preview}
+                  className="preview"
+                  style={`transform(${p.rotate}deg)`}
+                />
+                <input type="hidden" value={p.file} name={`photo[${i}]`} />
+                <input type="hidden" value={p.rotate} name={`rotates[${i}]`} />
+              </div>
             ))}
           </div>
           <Input
@@ -98,11 +96,7 @@ class PropertyForm extends Component {
             name="location[coordinates][1]"
             type="hidden"
           />
-          <Input
-            inputType="textarea"
-            label="Short Description"
-            name="shortDescription"
-          />
+          <Input inputType="textarea" label="Description" name="description" />
           <div className="group">
             <Input inputType="select" label="# of Bedrooms" name="bedrooms">
               {this.getOptions()}
@@ -113,7 +107,7 @@ class PropertyForm extends Component {
           </div>
           <Input
             label="Rental Price per Month"
-            name="rentalPrice"
+            name="price"
             type="number"
             helperText="Enter the price per month as a number only (no commas)"
           />
