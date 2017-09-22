@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import { Layout } from '../layouts';
 import { Tile, Slider, Map } from '../components';
+import withRedux from 'next-redux-wrapper';
+import initStore from '../store';
+import { clearFilters } from '../actions/filters';
 
-export default function Index({ properties }) {
-  console.log(properties);
+function Index({ properties }) {
   return (
     <Layout withMenu>
       <Slider />
-      <Map />
+      <Map serverProperties={properties} />
       {properties.length > 0 &&
         properties.map(p => <Tile key={`property-${p._id}`} {...p} />)}
     </Layout>
@@ -18,11 +20,13 @@ Index.propTypes = {
   properties: PropTypes.array.isRequired,
 };
 
-Index.getInitialProps = async ({ req }) => {
-  const prefix = req
-    ? `${req.protocol}://${req.get('Host')}`
-    : window.location.origin;
-  const propertiesJson = await fetch(`${prefix}/api/getProperties`);
-  const properties = await propertiesJson.json();
-  return { properties };
+Index.getInitialProps = async ({ store, req }) => {
+  await store.dispatch(clearFilters(req));
+  return {};
 };
+
+const mapStateToProps = ({ filters }) => {
+  return { properties: filters };
+};
+
+export default withRedux(initStore, mapStateToProps)(Index);

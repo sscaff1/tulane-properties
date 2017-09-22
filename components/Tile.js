@@ -46,11 +46,15 @@ export default function Tile({
         </div>
         <style jsx>{`
           img {
-            max-width: 200px;
+            max-width: 100%;
+            max-height: 95%;
+            width: auto;
             height: auto;
           }
           .photoContainer {
             position: relative;
+            max-width: 30%;
+            max-height: 95%;
           }
           img:not(:first-child) {
             position: absolute;
