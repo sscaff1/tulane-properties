@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import photos from './photos';
 import bullets from './bullets';
-import filters from './filters';
+import properties from './properties';
 
 export default combineReducers({
   photos,
   bullets,
-  filters,
+  properties,
 });

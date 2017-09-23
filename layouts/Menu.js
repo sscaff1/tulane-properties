@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BLUE, GREEN } from '../constants';
 
 export default function Menu() {
   return (
@@ -13,6 +14,13 @@ export default function Menu() {
       <style jsx>{`
         a {
           margin: 0 10px;
+          font-size: 24px;
+          text-decoration: none;
+          color: ${BLUE};
+        }
+        a:hover {
+          color: ${GREEN};
+          transform: scale(1.2);
         }
       `}</style>
     </nav>

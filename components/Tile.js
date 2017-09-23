@@ -29,10 +29,10 @@ export default function Tile({
           })}
         </div>
         <div className="description">
-          <h3>{location.address}</h3>
-          <p>{description}</p>
-        </div>
-        <div className="otherInfo">
+          <div className="top">
+            <h3>{location.address}</h3>
+            <p>{description}</p>
+          </div>
           <h3>Rental Info</h3>
           <ul>
             <li>Bathrooms: {bathrooms}</li>
@@ -89,10 +89,8 @@ export default function Tile({
           p {
             margin: 0;
           }
-          .otherInfo {
-            margin-left: 15px;
-            padding-left: 5px;
-            border-left: 1px solid black;
+          .top {
+            margin-bottom: 20px;
           }
         `}</style>
       </div>

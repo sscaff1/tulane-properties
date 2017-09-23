@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import Menu from './Menu';
+import { FONT_FAMILY } from '../constants';
 
 export default function Layout({ children, userLoggedIn, withMenu }) {
   return (
@@ -16,7 +17,13 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
       )}
       {withMenu && <Menu />}
       {children}
+      <style jsx global>{`
+      * { font-family: ${FONT_FAMILY}}
+      `}</style>
       <style jsx>{`
+        h1 {
+          font-size: 36px;
+        }
         .container {
           align-items: center;
           display: flex;
@@ -29,12 +36,14 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
         }
         h1,
         h3 {
-          margin: 0;
           padding: 0;
           text-align: center;
         }
+        h3 {
+          margin: 0;
+        }
         .contactInfo {
-          margin-bottom: 10px;
+          margin-bottom: 20px;
         }
       `}</style>
     </div>

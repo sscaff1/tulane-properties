@@ -1,23 +1,23 @@
-import Carousel from 'nuka-carousel';
+import Slider from 'react-slick-ssr';
 
-export default function Slider() {
+export default function AppSlider() {
   const settings = {
-    framePadding: '20px',
+    infinite: true,
+    speed: 500,
     slidesToShow: 3,
-    cellSpacing: 30,
-    decorators: [],
-    wrapAround: true,
-    // autoplay: true,
-    autoplayInterval: 2000,
-    cellAlign: 'center',
+    slidesToScroll: 1,
+    autoplay: true,
+    draggable: false,
   };
   return (
-    <Carousel {...settings}>
-      <img src="https://unsplash.it/200" />
-      <img src="https://unsplash.it/400" />
-      <img src="https://unsplash.it/600/200" />
-      <img src="https://unsplash.it/200" />
-      <img src="https://unsplash.it/200" />
-    </Carousel>
+    <Slider {...settings}>
+      <img src="static/sample.jpeg" />
+      <img src="static/sample.jpeg" />
+      <img src="static/sample.jpeg" />
+      <img src="static/sample.jpeg" />
+      <img src="static/sample.jpeg" />
+      <img src="static/sample.jpeg" />
+      <img src="static/sample.jpeg" />
+    </Slider>
   );
 }

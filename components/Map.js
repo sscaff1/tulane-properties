@@ -1,3 +1,5 @@
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './MapMarker';
 
@@ -11,19 +13,25 @@ const TULANE_STYLE = {
   textAlign: 'center',
 };
 
-const Marker = ({ children }) => <div style={TULANE_STYLE}>{children}</div>;
+const Tulane = ({ children }) => <div style={TULANE_STYLE}>{children}</div>;
 
-export default function Map() {
+function Map({ properties }) {
   return (
     <div className="container">
       <GoogleMapReact
         center={{ lng: -90.12072790000002, lat: 29.9403477 }}
         zoom={13}
       >
-        <Marker lng={-90.12072790000002} lat={29.9403477}>
+        <Tulane lng={-90.12072790000002} lat={29.9403477}>
           Tulane University
-        </Marker>
-        <MapMarker lng={-90.09} lat={29.940349} />
+        </Tulane>
+        {properties.map((p, i) => (
+          <MapMarker
+            key={`mappedProperty-${i}`}
+            lng={p.location.coordinates[0]}
+            lat={p.location.coordinates[1]}
+          />
+        ))}
       </GoogleMapReact>
       <style jsx>{`
         .container {
@@ -35,3 +43,13 @@ export default function Map() {
     </div>
   );
 }
+
+Map.propTypes = {
+  properties: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = ({ properties }) => ({
+  properties: properties.properties,
+});
+
+export default connect(mapStateToProps)(Map);

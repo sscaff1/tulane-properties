@@ -25,8 +25,13 @@ export default class MyDocument extends Document {
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
+          <link
+            href="https://fonts.googleapis.com/css?family=Roboto+Condensed"
+            rel="stylesheet"
+          />
           <script src={this.props.googleMapsUrl} />
-          <style>{`* { box-sizing: border-box; }`}</style>
+          <style
+          >{`* { box-sizing: border-box; font-family: 'Roboto Condensed', sans-serif; }`}</style>
         </Head>
         <body className="custom_class">
           {this.props.customValue}

@@ -23,7 +23,6 @@
     "multer-s3": "^2.7.0",
     "next": "^3.2.2",
     "next-redux-wrapper": "^1.3.4",
-    "nuka-carousel": "^2.3.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.2.1",
@@ -32,6 +31,7 @@
     "react-dom": "^15.6.1",
     "react-dropzone": "^4.1.2",
     "react-redux": "^5.0.6",
+    "react-slick-ssr": "^0.14.5",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "slugs": "^0.1.3"
