@@ -6,18 +6,18 @@ export const actionTypes = {
 };
 
 export const filters = {
-  1: 'ONE',
-  2: 'TWO',
-  3: 'THREE',
-  4: 'FOUR',
-  5: 'FIVE',
-  6: 'SIX',
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
   SELECT: 'SELECT',
 };
 
 export const sorts = {
-  SORT_PRICE: 'SORT_PRICE',
-  SORT_DISTANCE: 'SORT_DISTANCE',
+  PRICE: 'PRICE',
+  DISTANCE: 'distanceToCampus',
 };
 
 const setProperties = properties => ({
@@ -40,10 +40,20 @@ export const selectOne = index => ({
   filter: filters.SELECT,
 });
 
-export const sort = field => ({ type: actionTypes.SORT, field });
+export const sort = field => ({ type: actionTypes.SORT, sort: sorts[field] });
 
-export const selectBedroom = num => ({
-  type: actionTypes.BEDROOM_SELECT,
-  num,
-  filter: filters[num],
-});
+export const selectBedroom = num => (dispatch, getState) => {
+  const { properties } = getState();
+  const { filters: currentFilters } = properties;
+  const newFilters = currentFilters.includes(filters[num])
+    ? currentFilters.filter(f => f !== filters[num])
+    : currentFilters.concat(filters[num]);
+  return dispatch(showAll()).then(() => {
+    if (newFilters.length > 0) {
+      dispatch({
+        type: actionTypes.BEDROOM_SELECT,
+        filters: newFilters,
+      });
+    }
+  });
+};

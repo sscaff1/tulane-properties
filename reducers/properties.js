@@ -1,28 +1,33 @@
-import { actionTypes } from '../actions/properties';
+import { actionTypes, sorts } from '../actions/properties';
 
 export default (state = {}, action) => {
   switch (action.type) {
     case actionTypes.CLEAR_FILTERS:
-      return { filters: [], properties: action.properties };
+      return { sort: undefined, filters: [], properties: action.properties };
     case actionTypes.ONE_PROPERTY:
-      return { filters: action.filters, properties: state.properties[index] };
-    case actionTypes.BEDROOM_SELECT:
       return {
         ...state,
-        filters: action.filter,
-        properties: state.properties.filter(
-          p => parseInt(p.bedrooms, 10) === action.num
+        filters: [action.filter],
+        properties: state.properties[index],
+      };
+    case actionTypes.BEDROOM_SELECT:
+      console.log(action.filters);
+      return {
+        ...state,
+        filters: action.filters,
+        properties: state.properties.filter(p =>
+          action.filters.includes(parseInt(p.bedrooms, 10))
         ),
       };
     case actionTypes.SORT:
       return {
         ...state,
-        filters: action.filter,
+        sort: action.sort,
         properties: state.properties.sort((a, b) => {
-          if (action.field === 'PRICE') {
+          if (action.sort === sorts.PRICE) {
             return a.price / a.bedrooms < b.price / b.bedrooms ? -1 : 1;
           }
-          return parseFloat(a[action.field]) < parseFloat(b[action.field])
+          return parseFloat(a[action.sort]) < parseFloat(b[action.sort])
             ? -1
             : 1;
         }),

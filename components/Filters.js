@@ -1,5 +1,12 @@
 import { connect } from 'react-redux';
 import { BLUE, GREEN } from '../constants';
+import {
+  showAll,
+  sort,
+  selectBedroom,
+  sorts,
+  filters as filtersList,
+} from '../actions/properties';
 
 function Filter({ onClick, label, className }) {
   return (
@@ -7,7 +14,7 @@ function Filter({ onClick, label, className }) {
       {label}
       <style jsx>{`
         div {
-          border: 2px dashed ${BLUE};
+          border: 2px solid #fff;
           border-radius: 5px;
           padding: 10px 0;
           font-size: 14px;
@@ -19,9 +26,11 @@ function Filter({ onClick, label, className }) {
         div:hover {
           color: white;
           background-color: ${GREEN};
+          border-color: ${GREEN};
         }
         .active,
         .active:hover {
+          border: 2px solid ${BLUE};
           background-color: ${BLUE};
         }
       `}</style>
@@ -29,21 +38,31 @@ function Filter({ onClick, label, className }) {
   );
 }
 
-function Filters({ filters }) {
+function Filters({ filters, clearFilters, bedroomFilter, sortProperties }) {
+  const getOtherProps = num => ({
+    onClick(e) {
+      e.preventDefault();
+      bedroomFilter(num);
+    },
+    className: filters.includes(filtersList[num]) ? 'active' : '',
+  });
   return (
     <div className="container">
-      <Filter label="All Properties" action={() => console.log('help')} />
-      <Filter label="1 Bedroom" action={() => console.log('help')} />
-      <Filter label="2 Bedroom" action={() => console.log('help')} />
-      <Filter label="3 Bedroom" action={() => console.log('help')} />
-      <Filter label="4 Bedroom" action={() => console.log('help')} />
-      <Filter label="5 Bedroom" action={() => console.log('help')} />
-      <Filter label="6+ Bedroom" action={() => console.log('help')} />
+      <Filter label="All Properties" onClick={clearFilters} />
+      <Filter label="1 Bedroom" {...getOtherProps(1)} />
+      <Filter label="2 Bedroom" {...getOtherProps(2)} />
+      <Filter label="3 Bedroom" {...getOtherProps(3)} />
+      <Filter label="4 Bedroom" {...getOtherProps(4)} />
+      <Filter label="5 Bedroom" {...getOtherProps(5)} />
+      <Filter label="6+ Bedroom" {...getOtherProps(6)} />
       <Filter
         label="Sort By Distance to Campus"
-        action={() => console.log('help')}
+        action={() => sortProperties(sorts.DISTANCE)}
       />
-      <Filter label="Sort By Price" action={() => console.log('help')} />
+      <Filter
+        label="Sort By Price per Bedroom"
+        action={() => sortProperties(sorts.PRICE)}
+      />
       <style jsx>{`
         .container {
           display: flex;
@@ -59,6 +78,21 @@ function Filters({ filters }) {
 
 const mapStateToProps = ({ properties }) => ({
   filters: properties.filters,
+  sort: properties.sort,
 });
 
-export default connect(mapStateToProps)(Filters);
+const mapDispatchToProps = dispatch => {
+  return {
+    clearFilters() {
+      dispatch(showAll());
+    },
+    bedroomFilter(num) {
+      dispatch(selectBedroom(num));
+    },
+    sortProperties(field) {
+      dispatch(sort(field));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

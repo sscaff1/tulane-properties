@@ -42,6 +42,11 @@ app.prepare().then(() => {
   server.use(passport.session());
   server.use(flash());
 
+  server.get('/property/:slug', (req, res) => {
+    const actualPage = '/property';
+    const query = { slug: req.params.slug };
+    app.render(req, res, actualPage, query);
+  });
   server.use('/api/admin', require('./routes/admin'));
   server.use('/api', require('./routes/api'));
   server.get('/admin/*', authController.isLoggedIn);

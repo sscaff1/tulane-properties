@@ -1,26 +1,43 @@
 import Link from 'next/link';
-import { BLUE, GREEN } from '../constants';
+import { BLUE } from '../constants';
 
 export default function Menu() {
   return (
     <nav>
-      <Link prefetch href="/">
-        <a>Home</a>
-      </Link>
-      <a href="#rent">For Rent</a>
-      <Link prefetch href="/contact">
-        <a>Contact Us</a>
-      </Link>
+      <div className="link">
+        <Link prefetch href="/">
+          <a>Home</a>
+        </Link>
+      </div>
+      <div className="link">
+        <a href="#rent">For Rent</a>
+      </div>
+      <div className="link">
+        <Link prefetch href="/contact">
+          <a>Contact Us</a>
+        </Link>
+      </div>
+
       <style jsx>{`
         a {
           margin: 0 10px;
           font-size: 24px;
           text-decoration: none;
-          color: ${BLUE};
+          text-transform: uppercase;
+          color: #fff;
         }
         a:hover {
-          color: ${GREEN};
+          color: ${BLUE};
           transform: scale(1.2);
+        }
+        .link {
+          text-align: center;
+          width: 20%;
+        }
+        nav {
+          display: flex;
+          width: 100%;
+          justify-content: center;
         }
       `}</style>
     </nav>

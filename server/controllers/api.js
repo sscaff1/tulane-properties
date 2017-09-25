@@ -8,3 +8,9 @@ exports.getProperties = (req, res) => {
       res.json(properties);
     });
 };
+
+exports.getProperty = (req, res) => {
+  Property.findOne({ slug: req.params.slug }).then(property => {
+    res.json(property);
+  });
+};

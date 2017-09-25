@@ -11,6 +11,7 @@ const TULANE_STYLE = {
   left: -MARKER_SIZE / 2,
   top: -MARKER_SIZE / 2,
   textAlign: 'center',
+  color: 'black',
 };
 
 const Tulane = ({ children }) => <div style={TULANE_STYLE}>{children}</div>;
@@ -28,6 +29,7 @@ function Map({ properties }) {
         {properties.map((p, i) => (
           <MapMarker
             key={`mappedProperty-${i}`}
+            index={i}
             lng={p.location.coordinates[0]}
             lat={p.location.coordinates[1]}
           />

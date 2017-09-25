@@ -1,3 +1,6 @@
+import { connect } from 'react-redux';
+import { selectOne } from '../actions/properties';
+
 const SIZE = 15;
 
 const STYLE = {
@@ -14,6 +17,14 @@ const STYLE = {
   justifyContent: 'center',
 };
 
-export default function MapMarker({ $hover }) {
+function MapMarker({ $hover }) {
   return <div style={STYLE} onClick={() => console.log('clicked')} />;
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  selectProperty() {
+    dispatch(selectOne(ownProps.index));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(MapMarker);

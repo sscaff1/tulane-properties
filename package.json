@@ -31,7 +31,7 @@
     "react-dom": "^15.6.1",
     "react-dropzone": "^4.1.2",
     "react-redux": "^5.0.6",
-    "react-slick-ssr": "^0.14.5",
+    "react-view-pager": "^0.5.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "slugs": "^0.1.3"

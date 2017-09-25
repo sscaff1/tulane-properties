@@ -20,13 +20,13 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>Tulane Properties</title>
+          <title>University Properties</title>
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Roboto+Condensed"
+            href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|Roboto+Slab:400,100,300,500,700,900"
             rel="stylesheet"
           />
           <script src={this.props.googleMapsUrl} />

@@ -47,13 +47,13 @@ export default function Tile({
         <style jsx>{`
           img {
             max-width: 100%;
-            max-height: 95%;
+            max-height: 200px;
             width: auto;
             height: auto;
           }
           .photoContainer {
             position: relative;
-            max-width: 30%;
+            max-width: 40%;
             max-height: 95%;
           }
           img:not(:first-child) {
@@ -69,7 +69,6 @@ export default function Tile({
             cursor: pointer;
             text-decoration: none;
             transition: all 0.2s;
-            border: 1px solid #000;
             border-radius: 5px;
             margin-bottom: 10px;
             display: flex;
