@@ -22,9 +22,9 @@ function Filter({ onClick, label, className }) {
           text-align: center;
           cursor: pointer;
           margin-bottom: 15px;
+          color: #fff;
         }
         div:hover {
-          color: white;
           background-color: ${GREEN};
           border-color: ${GREEN};
         }

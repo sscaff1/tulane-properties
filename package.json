@@ -4,7 +4,12 @@
   "main": "./server",
   "license": "MIT",
   "scripts": {
+    "start": "node server",
+    "build": "next build",
     "dev": "nodemon -w server"
+  },
+  "now": {
+    "dotenv": "variables.env"
   },
   "dependencies": {
     "aws-sdk": "^2.116.0",

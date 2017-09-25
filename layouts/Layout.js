@@ -22,8 +22,18 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
       <style jsx global>{`
         * {
           font-family: ${FONT_FAMILY};
-          color: #fff;
+
           font-weight: lighter;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        p,
+        label,
+        ul {
+          color: #fff;
         }
         body {
           margin: 0;
@@ -42,6 +52,7 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
           flex-direction: column;
         }
         .logout {
+          color: #fff;
           position: absolute;
           top: 10px;
           right: 10px;
