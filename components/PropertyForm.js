@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import Input from './Input';
-import { addPictures } from '../actions/photos';
+import { addPictures, rotatePicture, deletePicture } from '../actions/photos';
 import { addBullet, deleteBullet } from '../actions/bullets';
 
 const DROPDOWN_OPTIONS = ['1', '2', '3', '4', '5', '6+'];
@@ -15,6 +15,8 @@ class PropertyForm extends Component {
     onBulletDelete: PropTypes.func.isRequired,
     photos: PropTypes.array.isRequired,
     onDrop: PropTypes.func.isRequired,
+    rotatePicture: PropTypes.func.isRequired,
+    deletePicture: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -48,6 +50,8 @@ class PropertyForm extends Component {
       onBulletDelete,
       photos,
       onDrop,
+      rotatePicture,
+      deletePicture,
     } = this.props;
     return (
       <div className="wrap">
@@ -67,9 +71,15 @@ class PropertyForm extends Component {
           <div className="previewGroup">
             {photos.map((p, i) => (
               <div key={`photo-${i}`} className="preview">
+                <span onClick={() => rotatePicture(i)} className="rotate">
+                  ⟲
+                </span>
+                <span onClick={() => deletePicture(i)} className="delete">
+                  &times;
+                </span>
                 <img
                   src={p.file.preview}
-                  style={{ transform: `(${p.rotate}deg)` }}
+                  style={{ transform: `rotate(${p.rotate}deg)` }}
                 />
                 <input type="hidden" value={p.rotate} name={`rotates[${i}]`} />
               </div>
@@ -162,6 +172,19 @@ class PropertyForm extends Component {
           .preview {
             max-width: 30%;
             margin-top: 15px;
+            position: relative;
+          }
+          .delete,
+          .rotate {
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            font-size: 20px;
+            z-index: 1;
+          }
+          .delete {
+            top: 2px;
+            right: 5px;
           }
           .preview img {
             max-width: 100%;
@@ -198,6 +221,12 @@ const mapDispatchToProps = dispatch => {
     },
     onBulletDelete(index) {
       dispatch(deleteBullet(index));
+    },
+    rotatePicture(index) {
+      dispatch(rotatePicture(index));
+    },
+    deletePicture(index) {
+      dispatch(deletePicture(index));
     },
   };
 };

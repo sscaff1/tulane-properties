@@ -10,7 +10,7 @@ function Admin({ errors }) {
         {errors.length > 0 && <h3>{errors[0]}</h3>}
         <Input label="Username" name="username" type="text" />
         <Input label="Password" name="password" type="password" />
-        <input type="submit" value="Login" />
+        <Input type="submit" value="Login" />
       </form>
       <style jsx>{`
         h2,
@@ -27,12 +27,6 @@ function Admin({ errors }) {
           padding: 20px;
           border: 1px solid black;
           border-radius: 10px;
-        }
-        input {
-          background-color: deepskyblue;
-          color: white;
-          border: 0;
-          font-size: 16px;
         }
       `}</style>
     </Layout>

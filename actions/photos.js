@@ -9,7 +9,7 @@ export const addPictures = files => {
   return { type: actionTypes.PHOTO_ADD, pics };
 };
 
-export const deletePictures = index => ({
+export const deletePicture = index => ({
   type: actionTypes.PHOTO_DELETE,
   index,
 });
