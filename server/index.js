@@ -8,10 +8,11 @@ const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const authController = require('./controllers/auth');
-require('dotenv').config({ path: 'variables.env' });
+
+const dev = process.env.NODE_ENV !== 'production';
+require('dotenv').config({ path: `variables${dev ? '.dev' : ''}.env` });
 
 const port = parseInt(process.env.PORT, 10) || 3000;
-const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
