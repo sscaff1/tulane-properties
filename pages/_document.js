@@ -11,8 +11,9 @@ export default class MyDocument extends Document {
       errorHtml,
       chunks,
       styles,
-      googleMapsUrl: `https://maps.googleapis.com/maps/api/js?key=${process.env
-        .MAP_KEY}&libraries=places`,
+      googleMapsUrl: `https://maps.googleapis.com/maps/api/js?key=${
+        process.env.MAP_KEY
+      }&libraries=places`,
     };
   }
 
@@ -21,17 +22,17 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <title>University Properties</title>
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <link rel="stylesheet" href="static/font.css" />
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|Roboto+Slab:400,100,300,500,700,900"
             rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
           <script src={this.props.googleMapsUrl} />
-          <style
-          >{`* { box-sizing: border-box; font-family: 'Roboto Condensed', sans-serif; }`}</style>
         </Head>
         <body className="custom_class">
           {this.props.customValue}

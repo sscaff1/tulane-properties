@@ -19,10 +19,7 @@ const Tulane = ({ children }) => <div style={TULANE_STYLE}>{children}</div>;
 function Map({ properties }) {
   return (
     <div className="container">
-      <GoogleMapReact
-        center={{ lng: -90.12072790000002, lat: 29.9403477 }}
-        zoom={13}
-      >
+      <GoogleMapReact center={{ lng: -90.12072790000002, lat: 29.9403477 }} zoom={15}>
         <Tulane lng={-90.12072790000002} lat={29.9403477}>
           Tulane University
         </Tulane>

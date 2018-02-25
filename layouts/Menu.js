@@ -10,7 +10,10 @@ export default function Menu() {
         </Link>
       </div>
       <div className="link">
-        <a href="#rent">For Rent</a>
+        <a href="#rent">Rental Properties</a>
+      </div>
+      <div className="link">
+        <a href="#">Amenities</a>
       </div>
       <div className="link">
         <Link prefetch href="/contact">
@@ -38,6 +41,20 @@ export default function Menu() {
           display: flex;
           width: 100%;
           justify-content: center;
+        }
+        @media (max-width: 1150px) {
+          nav {
+            flex-direction: column;
+            align-items: center;
+          }
+          .link {
+            width: 100%;
+          }
+          a {
+            margin: 10px auto;
+            display: block;
+            font-size: 20px;
+          }
         }
       `}</style>
     </nav>

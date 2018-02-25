@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import Menu from './Menu';
-import { FONT_FAMILY, FONT_FAMILY_MAIN, GREEN, BLUE } from '../constants';
+import { FONT_FAMILY, GREEN, BLUE } from '../constants';
 
 export default function Layout({ children, userLoggedIn, withMenu }) {
   return (
     <div className="container">
       <div className="topContainer">
         <h1>University Rentals</h1>
-        <div className="contactInfo">
-          <h3>Phone: ###-###-####</h3>
-          <h3>Email: example@site.com</h3>
+        <div className="slogan">
+          <h3>Renovated Historic Homes in New Orleans</h3>
         </div>
       </div>
       {userLoggedIn && (
@@ -21,8 +20,8 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
       {children}
       <style jsx global>{`
         * {
+          box-sizing: border-box;
           font-family: ${FONT_FAMILY};
-
           font-weight: lighter;
         }
         h1,
@@ -42,7 +41,6 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
       `}</style>
       <style jsx>{`
         h1 {
-          font-family: ${FONT_FAMILY_MAIN}
           font-size: 36px;
           font-weight: normal;
         }
@@ -65,7 +63,7 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
         h3 {
           margin: 0;
         }
-        .contactInfo {
+        .slogan {
           margin-bottom: 20px;
         }
         .topContainer {

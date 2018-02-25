@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
+import withRedux from 'next-redux-wrapper';
 import { Layout } from '../layouts';
 import { Tile, Slider, Map, Filters } from '../components';
-import withRedux from 'next-redux-wrapper';
 import initStore from '../store';
 import { showAll } from '../actions/properties';
 
@@ -11,9 +11,7 @@ function Index({ properties }) {
       <Slider />
       <h2 id="rent">For Rent</h2>
       <Map />
-      <Filters />
-      {properties.length > 0 &&
-        properties.map(p => <Tile key={`property-${p._id}`} {...p} />)}
+      {properties.length > 0 && properties.map(p => <Tile key={`property-${p._id}`} {...p} />)}
     </Layout>
   );
 }

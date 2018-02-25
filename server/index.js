@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const next = require('next');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -10,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const authController = require('./controllers/auth');
 
 const dev = process.env.NODE_ENV !== 'production';
-require('dotenv').config({ path: `variables${dev ? '.dev' : ''}.env` });
+require('dotenv').config({ path: path.resolve(__dirname, `../variables${dev ? '.dev' : ''}.env`) });
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const app = next({ dev });
