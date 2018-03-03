@@ -39,9 +39,7 @@ export default function Tile({
             <li>Bedrooms: {bedrooms}</li>
             <li>Price: ${price}</li>
             <li>Price/Bedroom: ${Math.floor(price / bedrooms)}</li>
-            <li>
-              Distance from Campus: {roundDistance(distanceToCampus)} miles
-            </li>
+            <li>Distance from Campus: {roundDistance(distanceToCampus)} miles</li>
           </ul>
         </div>
         <style jsx>{`
@@ -64,13 +62,13 @@ export default function Tile({
             font-family: 'Open Sans';
           }
           .container {
-            padding: 5px;
-            color: black;
+            padding: 10px;
             cursor: pointer;
             text-decoration: none;
             transition: all 0.2s;
             border-radius: 5px;
-            margin-bottom: 10px;
+            border: 1px solid black;
+            margin-bottom: 20px;
             display: flex;
             position: relative;
             width: 95%;
@@ -79,10 +77,6 @@ export default function Tile({
           .description {
             padding-top: 20px;
             margin-left: 25px;
-            display: flex;
-            flex: 0.8;
-            flex-direction: column;
-            align-items: flex-start;
           }
           h3,
           p {

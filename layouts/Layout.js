@@ -45,9 +45,8 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
           font-weight: normal;
         }
         .container {
-          align-items: center;
-          display: flex;
-          flex-direction: column;
+          margin: 0;
+          padding: 0;
         }
         .logout {
           color: #fff;
@@ -68,6 +67,7 @@ export default function Layout({ children, userLoggedIn, withMenu }) {
         }
         .topContainer {
           background-color: ${GREEN}
+          padding: 10px 0;
           width: 100%;
           margin-top: 0;
           margin-bottom: 20px;

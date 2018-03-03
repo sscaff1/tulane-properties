@@ -36,7 +36,7 @@ function Map({ properties }) {
         .container {
           width: 90%;
           height: 300px;
-          margin: 20px 0;
+          margin: 20px auto;
         }
       `}</style>
     </div>

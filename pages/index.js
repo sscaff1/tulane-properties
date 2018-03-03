@@ -7,12 +7,19 @@ import { showAll } from '../actions/properties';
 
 function Index({ properties }) {
   return (
-    <Layout withMenu>
-      <Slider />
-      <h2 id="rent">For Rent</h2>
-      <Map />
-      {properties.length > 0 && properties.map(p => <Tile key={`property-${p._id}`} {...p} />)}
-    </Layout>
+    <div>
+      <Layout withMenu>
+        <Slider />
+        <h2 id="rent">For Rent</h2>
+        <Map />
+        {properties.length > 0 && properties.map(p => <Tile key={`property-${p._id}`} {...p} />)}
+      </Layout>
+      <style jsx>{`
+        h2 {
+          text-align: center;
+        }
+      `}</style>
+    </div>
   );
 }
 
